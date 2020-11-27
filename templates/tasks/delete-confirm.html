@@ -1,0 +1,24 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}
+    TO-DO-LIST
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-secondary text-center">TO-DO-LIST</h1>
+
+    <form method="post" action="{% url 'delete_task' task.id %}">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-header">Delete Task</div>
+            <div class="card-body">
+                <h4>Are you sure that you want to delete
+                <span class="badge badge-custom">{{ task.description }}</span>?</h4>
+                <a href="{% url 'view_tasks' %}" class="btn btn-info">No, go Back</a>
+                <button type="submit" class="btn btn-danger">Yes, delete</button>
+            </div>
+        </div>
+
+    </form>
+
+{% endblock %}

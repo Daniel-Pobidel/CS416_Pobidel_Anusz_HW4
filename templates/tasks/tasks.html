@@ -1,0 +1,41 @@
+{% extends 'tasks/base.html' %}
+
+{% block title %}
+    Tasks
+{% endblock %}
+
+
+{% block body %}
+    <h1>Tasks</h1>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Task</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ task.description }}</td>
+                <td>
+                    <a href="{% url 'update_task' task.id %}" class="update-icon">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'delete_task' task.id %}" class="delete-icon">
+                         <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'create_task' %}" class="btn btn-success"><i class="fas fa-plus"></i> Add a new task</a>
+
+{% endblock %}
