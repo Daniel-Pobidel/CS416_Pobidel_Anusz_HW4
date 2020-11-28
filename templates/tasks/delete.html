@@ -1,11 +1,9 @@
-{% extends 'tasks/base.html' %}
+{% extends 'tasks/index.html' %}
 
 {% block title %}
-    TO-DO-LIST
 {% endblock %}
 
 {% block body %}
-    <h1 class="text-secondary text-center">TO-DO-LIST</h1>
 
     <form method="post" action="{% url 'delete_task' task.id %}">
         {% csrf_token %}

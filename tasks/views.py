@@ -2,13 +2,14 @@ from django.shortcuts import render, redirect
 from .forms import TaskForm
 from .models import Task
 
+
 # CRUD Operations: Create, Retrieve, Update, Delete
 
 
 def view_tasks(request):
     # Retrieve all the tasks and render tasks.html with the data
     tasks = Task.objects.all()
-    context = {'tasks' : tasks}
+    context = {'tasks': tasks}
     return render(request, 'tasks/tasks.html', context)
 
 
@@ -23,7 +24,21 @@ def create_task(request):
         return redirect('view_tasks')
 
     # if the request does not have post data, a blank form will be rendered
-    return render(request, 'tasks/task-form.html', {'form': form})
+    return render(request, 'tasks/update.html', {'form': form})
+
+
+'''
+def add_todo(request):
+    # Create a form instance and populate it with data from the request
+    form = TaskForm(request.POST or None)
+    # check whether it's valid:
+    if form.is_valid():
+        # save the record into the db
+        form.save()
+
+    # if the request does not have post data, a blank form will be rendered
+    return render(request, 'tasks/update.html', {'form': form})
+'''
 
 
 def update_task(request, id):
@@ -41,7 +56,7 @@ def update_task(request, id):
         return redirect('view_tasks')
 
     # if the request does not have post data, render the page with the form containing the task's info
-    return render(request, 'tasks/task-form.html', {'form': form, 'task': task})
+    return render(request, 'tasks/update.html', {'form': form, 'task': task})
 
 
 def delete_task(request, id):
@@ -55,4 +70,4 @@ def delete_task(request, id):
         return redirect('view_tasks')
 
     # if the request is not post, render the page with the task's info
-    return render(request, 'tasks/delete-confirm.html', {'task': task})
+    return render(request, 'tasks/delete.html', {'task': task})

@@ -1,41 +1,39 @@
-{% extends 'tasks/base.html' %}
+{% extends 'tasks/index.html' %}
 
 {% block title %}
-    Tasks
 {% endblock %}
 
 
 {% block body %}
-    <h1>Tasks</h1>
-
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th scope="col">Task</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
-        </tr>
-        </thead>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Add tasks" aria-label="Add tasks" aria-describedby="button-addon2">
+      <div class="input-group-append">
+         <a href="{% url 'create_task' %}" class="btn btn-primary">ADD</a>
+      </div>
+    </div>
+    <table class="table table-hover border border-silver bg-white">
         <tbody>
         {% for task in tasks %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ task.description }}</td>
+                <td>{{ task.created_at }}</td>
+                 <td>
+                    <button type="button" class="btn btn-success">Complete</button>
+                </td>
                 <td>
-                    <a href="{% url 'update_task' task.id %}" class="update-icon">
-                        <i class="fas fa-edit"></i>
+                    <a href="{% url 'update_task' task.id %}">
+                        <button type="button" class="btn btn-primary">Update</button>
                     </a>
                 </td>
                 <td>
-                    <a href="{% url 'delete_task' task.id %}" class="delete-icon">
-                         <i class="fas fa-trash"></i>
+                    <a href="{% url 'delete_task' task.id %}">
+                        <button type="button" class="btn btn-danger">Delete</button>
                     </a>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{% url 'create_task' %}" class="btn btn-success"><i class="fas fa-plus"></i> Add a new task</a>
 
 {% endblock %}

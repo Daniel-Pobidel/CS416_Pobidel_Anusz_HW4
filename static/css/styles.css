@@ -17,3 +17,11 @@ body{
     padding: 0.2em;
     line-height: 2em;
 }
+/* this is the checkbox itself */
+#id_completed{
+    transform: scale(2);
+}
+/* this is the checkbox writing */
+#div_id_completed{
+    transform: scale(1);
+}
