@@ -71,3 +71,17 @@ def delete_task(request, id):
 
     # if the request is not post, render the page with the task's info
     return render(request, 'tasks/delete.html', {'task': task})
+
+
+def complete_task(request, id):
+    # Get the task based on its id
+    task = Task.objects.get(id=id)
+
+    # if this is a POST request, Task gets marked as completed and saved to database
+    if request.method == 'POST':
+        task.completed = True
+        task.save()
+
+    # after complete redirect to view_task page
+    return redirect('view_tasks')
+

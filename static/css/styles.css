@@ -25,3 +25,7 @@ body{
 #div_id_completed{
     transform: scale(1);
 }
+.task-completed {
+	text-decoration: line-through;
+	background: #eeeeee;
+}

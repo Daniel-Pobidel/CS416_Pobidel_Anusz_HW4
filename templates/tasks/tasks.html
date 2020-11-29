@@ -1,25 +1,39 @@
 {% extends 'tasks/index.html' %}
+{% include '../static/css/styles.css' %}
 
 {% block title %}
 {% endblock %}
 
 
 {% block body %}
-    <div class="input-group mb-3">
+
+
+  <div class="input-group mb-3">
       <input type="text" class="form-control" placeholder="Add tasks" aria-label="Add tasks" aria-describedby="button-addon2">
       <div class="input-group-append">
          <a href="{% url 'create_task' %}" class="btn btn-primary">ADD</a>
       </div>
     </div>
+
+
     <table class="table table-hover border border-silver bg-white">
         <tbody>
         {% for task in tasks %}
-            <tr>
-                <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ task.description }}</td>
-                <td>{{ task.created_at }}</td>
-                 <td>
-                    <button type="button" class="btn btn-success">Complete</button>
+            {% if task.completed %}
+            <tr class="task-completed">
+                    <td><b>{{ task.description }}</b></td>
+                    <td>Created at: {{ task.created_at }}</td>
+                <td>
+                {% else %}
+                 <tr>
+                    <td><b>{{ task.description }}</b></td>
+                    <td>Created at: {{ task.created_at }}</td>
+                <td>
+            {% endif %}
+                   <form method="post" action="{% url 'complete_task' task.id %}">
+                    {% csrf_token %}
+                       <button type="submit" class="btn btn-success">Complete</button>
+                </form>
                 </td>
                 <td>
                     <a href="{% url 'update_task' task.id %}">
