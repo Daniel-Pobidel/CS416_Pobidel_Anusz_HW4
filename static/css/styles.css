@@ -1,5 +1,14 @@
+@media only screen and (max-width: 768px) {
+    .row-buttons{
+        justify-content: flex-start;
+        align-items: flex-start;
+        align-content: flex-start;
+    }
+}
+
 body{
     background-color: #fafafa;
+    justify-content: center;
 }
 
 .update-icon{
@@ -16,4 +25,34 @@ body{
     border-radius: 3px;
     padding: 0.2em;
     line-height: 2em;
+}
+/* this is the checkbox itself */
+#id_completed{
+    transform: scale(2);
+}
+/* this is the checkbox writing */
+#div_id_completed{
+    transform: scale(1);
+}
+.task-completed-div {
+	text-decoration: line-through;
+    color: gray;
+	background-color: #eeeeee;
+    border: 1px solid silver;
+    border-radius: 0.25rem;
+    margin: 10px;
+    padding: 10px;
+}
+
+.task-div{
+    border: 1px solid silver;
+    border-radius: 0.25rem;
+    background-color: white;
+    margin: 10px;
+    padding: 10px;
+}
+
+.created-at{
+    color: gray;
+    font-size: 0.7rem;
 }

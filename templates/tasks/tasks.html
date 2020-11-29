@@ -1,41 +1,72 @@
-{% extends 'tasks/base.html' %}
+{% extends 'tasks/index.html' %}
+{% include '../static/css/styles.css' %}
 
 {% block title %}
-    Tasks
 {% endblock %}
 
 
 {% block body %}
-    <h1>Tasks</h1>
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th scope="col">Task</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
-        </tr>
-        </thead>
-        <tbody>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form id="new_task_form" method="post" action="{% url 'create_task' %}"  role="form" >
+                    <div class="input-group">
+                        {% csrf_token %}
+                        {{  form.Task.description }}
+                        <input type="text" class="form-control" id="description" name="description"  placeholder="Add tasks" aria-label="Add tasks" aria-describedby="button-addon2">
+
+                        <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary"> ADD </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+  <div class="container mt-3">
         {% for task in tasks %}
-            <tr>
-                <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ task.description }}</td>
-                <td>
-                    <a href="{% url 'update_task' task.id %}" class="update-icon">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                </td>
-                <td>
-                    <a href="{% url 'delete_task' task.id %}" class="delete-icon">
-                         <i class="fas fa-trash"></i>
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{% url 'create_task' %}" class="btn btn-success"><i class="fas fa-plus"></i> Add a new task</a>
+            {% if task.completed %}
+              <div class="row task-completed-div">
+            {% else %}
+              <div class="row task-div">
+            {% endif %}
+
+            <div class="col">
+                <div class="row"><b>{{ task.description }}</b></div>
+                <div class="row created-at">Created at: {{ task.created_at }}</div>
+             </div>
+
+            <div class="col">
+                <div class="row row-buttons justify-content-end">
+                {% if task.completed == False %}
+                    <form method="post" action="{% url 'complete_task' task.id %}">
+                        {% csrf_token %}
+                           <button type="submit" class="btn btn-success">Complete</button>
+                    </form>
+                {% endif %}
+
+                <a href="{% url 'update_task' task.id %}">
+                    <button type="button" class="btn btn-primary ml-1">Update</button>
+                </a>
+
+                <a href="{% url 'delete_task' task.id %}">
+                    <button type="button" class="btn btn-danger ml-1">Delete</button>
+                </a>
+                 </div>
+            </div>
+
+            {#      need matching closing tags to prevent warning      #}
+            {% if task.completed %}
+                </div>
+            {% else %}
+                </div>
+            {% endif %}
+
+        {% endfor %}
+
+  </div>
 
 {% endblock %}
