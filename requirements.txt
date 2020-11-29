@@ -1,1 +1,1 @@
-crispy_forms
+django-crispy-forms==1.9.2
