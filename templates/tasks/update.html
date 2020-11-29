@@ -12,7 +12,7 @@
           </div>
         <div class="card-body">
         <form method="post" action="">
-        {% csrf_token %}
+            {% csrf_token %}
             {{ form|crispy }}
             <a href="{% url 'view_tasks' %}" class="btn btn-info"><- Go back</a>
             <button type="submit" class="btn btn-primary">Update</button>
